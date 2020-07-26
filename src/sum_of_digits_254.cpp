@@ -104,6 +104,8 @@ public:
   };
 };
 
+#ifndef TEST
+
 int main(){
   auto f = FIter();
   for (auto &x: f ) {
@@ -111,3 +113,4 @@ int main(){
   };
   return 0;
 }
+#endif
