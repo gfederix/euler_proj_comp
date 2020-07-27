@@ -1,0 +1,5 @@
+# include(GoogleTest)
+add_executable(test1 test_sum_of_digits_254.cpp)
+target_link_libraries(test1  GTest::Main)
+# target_link_libraries(test1 gtest_main)
+gtest_discover_tests(test1)

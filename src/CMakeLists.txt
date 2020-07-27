@@ -1,0 +1,1 @@
+add_executable(sum_of_digits_254 sum_of_digits_254.cpp)
