@@ -76,8 +76,6 @@ public:
   }
   long get_fact_sum() const {
     long rez = fact_array[num];
-    // long rez = 0;
-    // cout << fact_array.size() << "\n";
     if (p) {
       rez += p->get_fact_sum();
     }
