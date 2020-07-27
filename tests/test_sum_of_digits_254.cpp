@@ -1,7 +1,5 @@
 // Project Euler #254: Sums of Digit Factorials
-#ifndef TEST
 #define TEST
-#endif
 
 #include "gtest/gtest.h"
 #include "sum_of_digits_254.cpp"
@@ -24,10 +22,13 @@ namespace {
     move_f_to(f, 10);
     EXPECT_EQ(f.get_value(), 3 + 10);
     EXPECT_EQ(f.get_fact_sum(), 1 + 6);
+    move_f_to(f, 100);
+    EXPECT_EQ(f.get_value(), 3 + 10 + 100);
+
   }
 
-  TEST(SumOfDigit, FIter){
-    auto fi = FIter();
+  TEST(SumOfDigit, FGenerator){
+    auto fi = FGenerator();
     auto fi_it = fi.begin();
     EXPECT_EQ((*fi_it).get_value(), 0);
     advance(fi_it, 11);

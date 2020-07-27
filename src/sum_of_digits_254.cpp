@@ -45,8 +45,7 @@ constexpr auto make_array(Function f)
 auto constexpr fact_array = make_array_helper(factorial, make_index_sequence<10>{});
 
 class F{
-  int num;
-  int pos;
+  int digit;
   unique_ptr<F>p;
   static constexpr int base = 10;
   // static auto constexpr fact_array = make_array<base>(factorial);
@@ -54,28 +53,28 @@ class F{
 
   // static constexpr array<int, 10> fact_table = fact_table();
 public:
-  explicit F(int num, int pos = 0): num{num}, pos{pos}{}
+  explicit F(int digit): digit{digit}{}
   F& operator++(int) {
-    num ++;
-    if (num == base) {
-      num = 0;
-      if (!p) {
-        p = make_unique<F>(1, pos + 1);
-      } else {
+    digit ++;
+    if (digit == base) {
+      digit = 0;
+      if (p) {
         (*p)++;
+      } else {
+        p = make_unique<F>(1);
       }
     }
     return *this;
   }
   long get_value() const {
-    long rez{num * static_cast<long>(powl(base, pos))};
+    long value{digit};
     if (p) {
-      rez += p->get_value();
+      value += p->get_value() * base;
     }
-    return rez;
+    return value;
   }
   long get_fact_sum() const {
-    long rez = fact_array[num];
+    long rez = fact_array[digit];
     if (p) {
       rez += p->get_fact_sum();
     }
@@ -83,13 +82,13 @@ public:
   }
 };
 
-class FIter{
+class FGenerator{
 public:
   class iterator: public  std::iterator<std::forward_iterator_tag, F>
   {
     F f;
   public:
-    explicit iterator(int x) : f{x, 0} {}
+    explicit iterator(int x) : f{x} {}
     iterator& operator++(){
       f++;
       return *this;}
@@ -105,7 +104,7 @@ public:
 #ifndef TEST
 
 int main(){
-  auto f = FIter();
+  auto f = FGenerator();
   for (auto &x: f ) {
     cout << x.get_value() << "\t" << x.get_fact_sum() << endl;
   };
